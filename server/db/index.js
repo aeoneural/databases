@@ -15,12 +15,13 @@ var connection = mysql.createConnection(
 
 connection.connect();
 
-query = connection.query('SELECT * FROM messages AS data', function(error, data, fields) {
+query = connection.query('SELECT * FROM messages', function(error, data, fields) {
      
   if (error) { throw error; }
-  console.log("The result", data);
-  console.log("The result", fields);
+  // console.log("The result", data);
+  // console.log("The result", fields);
   
 
 });
 
+module.exports = connection;
