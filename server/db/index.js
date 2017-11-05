@@ -10,7 +10,6 @@ var connection = mysql.createConnection(
     password: 'student', 
     database: 'chat'
   }
-
 );
 
 connection.connect();

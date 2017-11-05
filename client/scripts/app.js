@@ -64,7 +64,7 @@ var app = {
       data: {},
       contentType: 'application/json',
       success: function(data) {
-        console.log("CLIENT SIDE---->", data);
+        // console.log("CLIENT SIDE---->", data.results);
         // Don't bother if we have nothing to work with
         if (!data.results || !data.results.length) { return; }
 
@@ -118,17 +118,19 @@ var app = {
 
   renderRoomList: function(messages) {
     app.$roomSelect.html('<option value="__newRoom">New room...</option>');
+    // console.log("roomname ---> ", messages[0][0].room_name);
 
     if (messages) {
       var rooms = {};
       messages.forEach(function(message) {
-        var roomname = message.roomname;
-        if (roomname && !rooms[roomname]) {
+        // console.log(' 0 ---->', message[0].room_name)
+        var roomname = message[0].room_name;
+        if (roomname && !rooms['room_name']) {
           // Add the room to the select menu
           app.renderRoom(roomname);
 
           // Store that we've added this room already
-          rooms[roomname] = true;
+          rooms['room_name'] = true;
         }
       });
     }
@@ -146,6 +148,8 @@ var app = {
   },
 
   renderMessage: function(message) {
+    // console.log("Message ---> ", message);
+    // console.log('Message key--- > ', message[0]['user_name']);
     if (!message.roomname) {
       message.roomname = 'lobby';
     }
@@ -156,7 +160,7 @@ var app = {
     // Add in the message data using DOM methods to avoid XSS
     // Store the username in the element's data attribute
     var $username = $('<span class="username"/>');
-    $username.text(message.username + ': ').attr('data-roomname', message.roomname).attr('data-username', message.username).appendTo($chat);
+    $username.text(message[0]['user_name'] + ': ').attr('data-roomname', message[0]['room_name']).attr('data-username', message[0]['user_name']).appendTo($chat);
 
     // Add the friend class
     if (app.friends[message.username] === true) {
@@ -164,7 +168,7 @@ var app = {
     }
 
     var $message = $('<br><span/>');
-    $message.text(message.text).appendTo($chat);
+    $message.text(message[0]['content']).appendTo($chat);
 
     // Add the message to the UI
     app.$chats.append($chat);

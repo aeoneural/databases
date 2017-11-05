@@ -12,6 +12,23 @@ module.exports = {
     }, // a function which handles a get request for all messages
 
     post: function (req, res) {
+      console.log('REQ.BODY', req.body);
+      // var body = '';
+      // var tempcall = function(input) { 
+        
+      // };
+      // req.on('data', function (data) {
+      //   body += data;
+      //   console.log('body of message', body.split('&'));
+        
+      // });
+      // req.on('end', function (err) {
+      //   console.log('body --> ', body)
+      //   // tempcall(body);
+      //   if (err) { throw err; }
+      // });
+      models.messages.post(function() { console.log("DONE ______ > "); }, req.body.username, req.body.roomname, req.body.roomname);
+    
 
     } // a function which handles posting a message to the database
   },
